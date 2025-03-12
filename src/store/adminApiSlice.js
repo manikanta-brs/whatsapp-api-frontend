@@ -1,6 +1,6 @@
 import { fetchBaseQuery, createApi } from "@reduxjs/toolkit/query/react";
 
-const ADMIN_ENDPOINT = "/api/admin";
+const ADMIN_ENDPOINT = "/api/admin"; // DOUBLE-CHECK THIS URL
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:3000",
@@ -21,7 +21,7 @@ const baseQuery = fetchBaseQuery({
 export const adminApiSlice = createApi({
   reducerPath: "whatsappapi",
   baseQuery,
-  tagTypes: ["Admin", "Templates"],
+  tagTypes: ["Admin", "Templates", "Messages"],
   endpoints: (builder) => ({
     getUserData: builder.query({
       query: () => ({
@@ -63,17 +63,30 @@ export const adminApiSlice = createApi({
         method: "POST",
         body: message,
       }),
-      invalidatesTags: ["Templates"],
+      invalidatesTags: ["Templates", "Messages"],
     }),
 
-    // ADDED: createTemplate mutation
     createTemplate: builder.mutation({
       query: (templateData) => ({
-        url: `${ADMIN_ENDPOINT}/templates`, // Or whatever your create endpoint is
+        url: `${ADMIN_ENDPOINT}/templates`,
         method: "POST",
         body: templateData,
       }),
-      invalidatesTags: ["Templates"], // Invalidate Templates after creating
+      invalidatesTags: ["Templates"],
+    }),
+
+    getMessages: builder.query({
+      query: (receiver) => {
+        let url = `${ADMIN_ENDPOINT}/messages`;
+        if (receiver) {
+          url += `?receiver=${receiver}`;
+        }
+        return {
+          url,
+          method: "GET",
+        };
+      },
+      providesTags: ["Messages"],
     }),
   }),
 });
@@ -84,7 +97,8 @@ export const {
   useGetAccountDetailsQuery,
   useGetPhoneNumbersQuery,
   useSendMessageMutation,
-  useCreateTemplateMutation, // ADDED: Export the hook
+  useCreateTemplateMutation,
+  useGetMessagesQuery,
 } = adminApiSlice;
 
 export default adminApiSlice;
