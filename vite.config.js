@@ -6,18 +6,14 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
     host: "0.0.0.0",
-    port: 5173,
+    port: 5173, // Ensures dev mode runs on 5173
     strictPort: true,
+    allowedHosts: ["whatsapp-api-frontend.onrender.com"],
+  },
+  preview: {
+    port: 5173, // Ensures preview mode runs on 5173
   },
   build: {
-    rollupOptions: {
-      output: {
-        manualChunks: (id) => {
-          if (id.includes("node_modules")) {
-            return "vendor";
-          }
-        },
-      },
-    },
+    chunkSizeWarningLimit: 600,
   },
 });
