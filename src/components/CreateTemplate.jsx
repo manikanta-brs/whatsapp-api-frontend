@@ -57,8 +57,8 @@ const CreateMessageTemplateForm = () => {
     if (appDetails) {
       setAppId(appDetails.data.id);
       setAccessToken(appDetails.accessToken);
-      console.log("App ID:", appDetails.data.id); // Log directly from appDetails
-      console.log("Access Token:", appDetails.accessToken); // Log directly from appDetails
+      // console.log("App ID:", appDetails.data.id); // Log directly from appDetails
+      // console.log("Access Token:", appDetails.accessToken); // Log directly from appDetails
     } else {
       toast.error("App details are still loading. Please try again.");
       return;
@@ -93,10 +93,10 @@ const CreateMessageTemplateForm = () => {
       fileData.append("token", accessToken);
 
       const uploadResponse = await uploadFileMutation(fileData).unwrap();
-      console.log(
-        "Full uploadResponse:",
-        JSON.stringify(uploadResponse, null, 2)
-      );
+      // console.log(
+      //   "Full uploadResponse:",
+      //   JSON.stringify(uploadResponse, null, 2)
+      // );
 
       toast.success("File uploaded successfully!");
 
@@ -108,10 +108,10 @@ const CreateMessageTemplateForm = () => {
         // <-- Changed this condition
         const mediaId = uploadResponse.uploadResponse.h; // <-- Changed this line to use uploadResponse.h
         setMediaId(mediaId);
-        console.log(
-          "Using uploadResponse.uploadResponse.h as Media ID:",
-          mediaId
-        ); // Log the new mediaId
+        // console.log(
+        //   "Using uploadResponse.uploadResponse.h as Media ID:",
+        //   mediaId
+        // ); // Log the new mediaId
         return mediaId;
       } else {
         console.error("Media ID not found in upload response");
@@ -166,13 +166,13 @@ const CreateMessageTemplateForm = () => {
     }
 
     // Log the values we're working with for debugging
-    console.log("Creating template with values:", {
-      templateName: formattedTemplateName,
-      category: formattedCategory,
-      language,
-      appId,
-      accessToken: accessToken ? "Present" : "Missing",
-    });
+    // console.log("Creating template with values:", {
+    //   templateName: formattedTemplateName,
+    //   category: formattedCategory,
+    //   language,
+    //   appId,
+    //   accessToken: accessToken ? "Present" : "Missing",
+    // });
 
     const formattedComponents = [];
 
@@ -210,7 +210,7 @@ const CreateMessageTemplateForm = () => {
         };
 
         formattedComponents.push(headerComponent);
-        console.log("Media header added with media ID:", headerMediaId);
+        // console.log("Media header added with media ID:", headerMediaId);
       } else {
         toast.error("No media uploaded for header");
         return;
@@ -289,15 +289,15 @@ const CreateMessageTemplateForm = () => {
       accessToken: accessToken,
     };
 
-    console.log(
-      "Template data being sent:",
-      JSON.stringify(templateData, null, 2)
-    );
+    // console.log(
+    //   "Template data being sent:",
+    //   JSON.stringify(templateData, null, 2)
+    // );
 
     try {
       // Now we pass only the templateData object
       const response = await createTemplate(templateData).unwrap();
-      console.log("Template creation response:", response);
+      // console.log("Template creation response:", response);
       toast.success("Template created successfully!");
 
       // Reset form after successful creation

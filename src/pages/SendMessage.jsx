@@ -79,7 +79,7 @@ const SendMessageForm = ({ selectedCategory }) => {
         }
       : { skip: true }
   );
-  console.log("messages", messages);
+  // console.log("messages", messages);
 
   // Use getSessionStatus query
   const {
@@ -395,10 +395,10 @@ const SendMessageForm = ({ selectedCategory }) => {
         }
 
         // Log the complete message body for debugging
-        console.log(
-          "Template message payload:",
-          JSON.stringify(messageBody, null, 2)
-        );
+        // console.log(
+        //   "Template message payload:",
+        //   JSON.stringify(messageBody, null, 2)
+        // );
       } else {
         // Sending a text message
         if (!formData.text.body || formData.text.body.trim() === "") {
@@ -414,10 +414,10 @@ const SendMessageForm = ({ selectedCategory }) => {
         messageBody.text = { body: formData.text.body };
 
         // Log the complete message body for debugging
-        console.log(
-          "Text message payload:",
-          JSON.stringify(messageBody, null, 2)
-        );
+        // console.log(
+        //   "Text message payload:",
+        //   JSON.stringify(messageBody, null, 2)
+        // );
       }
 
       // Check session status before sending message
@@ -438,7 +438,7 @@ const SendMessageForm = ({ selectedCategory }) => {
 
       setApiError(null);
       const response = await sendMessage(messageBody).unwrap();
-      console.log("Message sent successfully:", response);
+      // console.log("Message sent successfully:", response);
 
       refetch();
       Swal.fire({
