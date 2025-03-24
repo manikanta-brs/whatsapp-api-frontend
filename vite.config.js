@@ -5,9 +5,19 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
-    host: "0.0.0.0", // Allow external access
-    port: 5173, // Ensure correct port
-    strictPort: true, // Prevents Vite from switching ports
-    allowedHosts: ["whatsapp-api-frontend.onrender.com"], // Add your Render domain here
+    host: "0.0.0.0",
+    port: 5173,
+    strictPort: true,
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: (id) => {
+          if (id.includes("node_modules")) {
+            return "vendor";
+          }
+        },
+      },
+    },
   },
 });
